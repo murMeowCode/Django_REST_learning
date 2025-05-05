@@ -1,10 +1,16 @@
 from django.forms import model_to_dict
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status,generics
 from rest_framework.views import APIView
 from .serializers import WomenSerializer
 from .models import Women
+import logging
 
+
+class WomenAPIList(generics.ListCreateAPIView):
+    queryset = Women.objects.all()
+    serializer_class = WomenSerializer
+    
 class WomenAPIView(APIView):
     def get(self, request):
         lst = Women.objects.all()
