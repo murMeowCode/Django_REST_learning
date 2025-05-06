@@ -1,4 +1,5 @@
 from rest_framework import generics
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import *
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -16,6 +17,7 @@ class WomenAPIList(generics.ListCreateAPIView):
     
 class WomenAPIUpdate(generics.RetrieveUpdateAPIView):
     permission_classes = [IsOwnerOrReadOnly]
+    authentication_classes = [TokenAuthentication]
     queryset = Women.objects.all()
     serializer_class = WomenSerializer
     
