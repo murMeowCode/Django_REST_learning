@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path, re_path
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 from women.views import *
 
 
@@ -27,5 +28,8 @@ urlpatterns = [
     path('api/v1/women/<int:pk>/', WomenAPIUpdate.as_view()),
     path('api/v1/womendelete/<int:pk>/', WomenAPIDestroy.as_view()),
     path('api/v1/auth/',include('djoser.urls')),
-    re_path(r'^auth/',include('djoser.urls.authtoken'))
+    re_path(r'^auth/',include('djoser.urls.authtoken')),
+    path('api/v1/token/',TokenObtainPairView.as_view(),name='TokenObtain'),
+    path('api/v1/token/refresh/',TokenRefreshView.as_view(),name='TokenRefresh'),
+    path('api/v1/token/verify/',TokenVerifyView.as_view(),name='TokenVerify')
 ]
